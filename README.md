@@ -41,8 +41,7 @@ Este laboratorio te guiará a través de la configuración de un pipeline CI/CD 
 
 ## Repositorios
 
-- **Node.js Application**: https://github.com/arol-dev/nodejs-app-aroldev
-- **Helm Chart (Infrastructure)**: [nodejs-app-aroldev-infra](https://github.com/aroldev/nodejs-app-aroldev-infra)
+- **
 
 Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 
@@ -53,11 +52,119 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 ### 1. Forkea Ambos Repositorios
 
 1. Ve a GitHub y haz un fork de estos repositorios:
-   - [Repositorio de la Aplicación Node.js](https://github.com/aroldev/nodejs-app-aroldev)
-   - [Repositorio de Infraestructura Helm Chart](https://github.com/aroldev/nodejs-app-aroldev-infra)
+   - Node.js Application (Este mismo repo): https://github.com/arol-dev/nodejs-app-aroldev
+   - Helm Chart (Infrastructure): https://github.com/arol-dev/nodejs-app-aroldev-infra
 
 2. Clona tus forks localmente:
    ```bash
    git clone https://github.com/<tu-usuario>/nodejs-app-aroldev.git
    git clone https://github.com/<tu-usuario>/nodejs-app-aroldev-infra.git
+   ```
+
+### 2. Crear un Dockerfile
+
+1. En tu fork del repositorio de la aplicación Node.js, crea un archivo `Dockerfile` para construir la imagen Docker de la aplicación.
+
+### 3. Crear el Pipeline en Jenkins
+
+1. Accede a Jenkins: https://jenkins.aroldev.com/.
+
+2. Crea un nuevo pipeline en Jenkins llamado <nombre>-<apellido>-ci para tu fork del repositorio de la aplicación. El pipeline tiene que ejecutar los siguentes pasos:
+   
+   - Git clone del Node.js Application: https://github.com/arol-dev/nodejs-app-aroldev
+   - Jenkins construye la aplicación y crea una imagen Docker.
+   - La imagen Docker es subida a un registro de contenedores Docker Hub
+   - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker.
+   - Jenkins hace commit de estos cambios en el repositorio GitOps.
+
+Template del pipeline para crear los varios pasos:
+
+```grrovy
+   pipeline {
+    agent { label 'docker-agent'}
+    stages {
+        stage('Git Clone') {
+            steps { 
+                script {
+                    sh "echo \"The Build Number is ${env.BUILD_NUMBER}\""
+                }
+            }
+        }
+
+        stage('Check Docker socket') {
+            steps { 
+                container('docker') {
+                    sh """
+                    sleep 3
+                    docker version
+                    """
+                }
+            }
+        }
+
+        stage('Build Docker image') {
+            steps { 
+                container('docker') {
+                    sh """
+                    
+                    """
+                }
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps { 
+                container('docker') {
+
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps { 
+                container('docker') {
+                    sh """
+
+                    """
+                }
+            }
+        }
+        
+        stage('Clean Workspace') {
+            steps { 
+                cleanWs()
+            }
+        }
+        
+        stage('Update values.yaml Chart') {
+            steps {
+                script {
+                    // Update the image tag in values.yaml (assumes image: <tag> format)
+                    sh """
+                    
+                    """
+                }
+            }
+        }
+        
+        stage('Git Push Infra') {
+            steps { 
+                withCredentials([
+                    gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')
+                ]) {
+                    sh """
+                    
+                    """
+                }
+            }
+        }      
+    }
+    
+    post {
+        always {
+            echo 'Cleaning workspace...'
+            cleanWs()  // This is the step to clean the workspace
+        }
+    }
+}
    ```
