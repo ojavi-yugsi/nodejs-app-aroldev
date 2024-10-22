@@ -77,7 +77,7 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
    - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker.
    - Jenkins hace commit de estos cambios en el repositorio GitOps.
 
-Template del pipeline para crear los varios pasos:
+Template Jenkinsfile para crear los varios pasos:
 
 ```grrovy
    pipeline {
@@ -168,3 +168,47 @@ Template del pipeline para crear los varios pasos:
     }
 }
    ```
+
+### 4. Configurar ArgoCD
+
+1. Accede a **ArgoCD**: [ArgoCD Dashboard](https://argo.aroldev.com/).
+2. Crea una nueva aplicación en **ArgoCD** apuntando a tu fork del repositorio Helm Chart:
+   - **Destino del Repositorio**: URL de tu fork del repositorio `nodejs-app-aroldev-infra`.
+   - **Ruta del Helm chart**: `charts/nodejs-app`.
+   - **Sync Policy**: Automática o manual según prefieras.
+3. Verifica que ArgoCD pueda sincronizar correctamente los cambios con tu clúster de Kubernetes.
+
+
+### 5. Actualizar la Aplicación para Desplegar
+
+1. Realiza cambios en tu aplicación (por ejemplo, cambia el mensaje de bienvenida nel fichero README.md).
+2. Haz un **push** de estos cambios a tu fork del repositorio de la aplicación.
+3. Observa cómo el pipeline CI/CD se dispara automáticamente:
+   - Jenkins detecta el cambio, construye la nueva imagen Docker y actualiza el repositorio de infraestructura.
+   - ArgoCD detecta el nuevo commit y despliega la nueva versión de la aplicación en Kubernetes.
+
+---
+
+## Resultado Final
+
+Al finalizar el laboratorio, habrás creado un pipeline CI/CD completo donde:
+
+1. Los cambios en el código fuente de la aplicación activan automáticamente Jenkins.
+2. Jenkins construye una nueva imagen Docker, la sube al registro de contenedores y actualiza el manifiesto en el repositorio GitOps.
+3. ArgoCD sincroniza los cambios con Kubernetes y despliega la nueva versión de la aplicación en el clúster.
+
+---
+
+## Enlaces Útiles
+
+- **Jenkins**: [https://jenkins.aroldev.com/](https://jenkins.aroldev.com/)
+- **ArgoCD**: [https://argo.aroldev.com/](https://argo.aroldev.com/login?return_url=https%3A%2F%2Fargo.aroldev.com%2Fapplications)
+- **Repositorio Node.js App**: [https://github.com/aroldev/nodejs-app-aroldev](https://github.com/aroldev/nodejs-app-aroldev)
+- **Repositorio Helm Chart**: [https://github.com/aroldev/nodejs-app-aroldev-infra](https://github.com/aroldev/nodejs-app-aroldev-infra)
+
+---
+
+¡Buena suerte en tu laboratorio de CI/CD!
+```
+
+Este archivo `README.md` contiene todas las instrucciones necesarias para realizar el laboratorio CI/CD con Jenkins y ArgoCD en un único fichero, proporcionando un flujo claro y estructurado.
