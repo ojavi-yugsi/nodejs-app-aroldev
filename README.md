@@ -41,7 +41,8 @@ Este laboratorio te guiará a través de la configuración de un pipeline CI/CD 
 
 ## Repositorios
 
-- **
+- **Node.js Application**: [nodejs-app-aroldev](https://github.com/arol-dev/nodejs-app-aroldev)
+- **Helm Chart (Infrastructure)**: [nodejs-app-aroldev-infra](https://github.com/arol-dev/nodejs-app-aroldev-infra)
 
 Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 
