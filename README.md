@@ -75,8 +75,9 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
    - Git clone del Node.js Application: https://github.com/arol-dev/nodejs-app-aroldev
    - Jenkins construye la aplicación y crea una imagen Docker.
    - La imagen Docker es subida a un registro de contenedores Docker Hub
-   - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker.
-   - Jenkins hace commit de estos cambios en el repositorio GitOps.
+   - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker. 
+        - Helm Chart (Infrastructure): https://github.com/arol-dev/nodejs-app-aroldev-infra
+   - Jenkins hace commit de estos cambios y un push en el repositorio GitOps. 
 
 Template Jenkinsfile para crear los varios pasos:
 
@@ -204,8 +205,8 @@ Al finalizar el laboratorio, habrás creado un pipeline CI/CD completo donde:
 
 - **Jenkins**: [https://jenkins.aroldev.com/](https://jenkins.aroldev.com/)
 - **ArgoCD**: [https://argo.aroldev.com/](https://argo.aroldev.com/login?return_url=https%3A%2F%2Fargo.aroldev.com%2Fapplications)
-- **Repositorio Node.js App**: [https://github.com/aroldev/nodejs-app-aroldev](https://github.com/aroldev/nodejs-app-aroldev)
-- **Repositorio Helm Chart**: [https://github.com/aroldev/nodejs-app-aroldev-infra](https://github.com/aroldev/nodejs-app-aroldev-infra)
+- **Repositorio Node.js App**: [https://github.com/aroldev/nodejs-app-aroldev](https://github.com/arol-dev/nodejs-app-aroldev)
+- **Repositorio Helm Chart**: [https://github.com/aroldev/nodejs-app-aroldev-infra](https://github.com/arol-dev/nodejs-app-aroldev-infra)
 
 ---
 
