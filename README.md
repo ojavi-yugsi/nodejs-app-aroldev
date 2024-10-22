@@ -70,7 +70,7 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 
 1. Accede a Jenkins: https://jenkins.aroldev.com/. Credentiales: Username: admin , Password: L49fXLvAGcQn7zxY
 
-2. Crea un nuevo pipeline en Jenkins llamado `<nombre.apellido>-ci` para tu fork del repositorio de la aplicación. 
+2. Crea un nuevo pipeline en Jenkins llamado `<numero-sala>-ci` para tu fork del repositorio de la aplicación. 
 
 3. Habilita un sondeo de dos minutos: `H/2 * * * *`
 
