@@ -68,14 +68,16 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 
 ### 3. Crear el Pipeline en Jenkins
 
-1. Accede a Jenkins: https://jenkins.aroldev.com/.
+1. Accede a Jenkins: https://jenkins.aroldev.com/. Credentiales: 
+        - Username: admin
+        - Password: L49fXLvAGcQn7zxY
 
-2. Crea un nuevo pipeline en Jenkins llamado <nombre>-<apellido>-ci para tu fork del repositorio de la aplicación. El pipeline tiene que ejecutar los siguentes pasos:
-   
+2. Crea un nuevo pipeline en Jenkins llamado `<nombre.apellido>-ci` para tu fork del repositorio de la aplicación. El pipeline tiene que ejecutar los siguentes pasos:
+
    - Git clone del Node.js Application: https://github.com/arol-dev/nodejs-app-aroldev
    - Jenkins construye la aplicación y crea una imagen Docker.
-   - La imagen Docker es subida a un registro de contenedores Docker Hub
-   - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker. 
+   - La imagen Docker es subida a un registro de contenedores Docker Hub. Utiliza las credentailes con id `dockerhub` 
+   - Jenkins actualiza el repositorio **GitOps** (Helm chart) con la nueva etiqueta de la imagen Docker. Actualiza el campo `deployemnt.image.tag` nel archivo values. yaml. 
         - Helm Chart (Infrastructure): https://github.com/arol-dev/nodejs-app-aroldev-infra
    - Jenkins hace commit de estos cambios y un push en el repositorio GitOps. 
 
@@ -173,11 +175,15 @@ Template Jenkinsfile para crear los varios pasos:
 
 ### 4. Configurar ArgoCD
 
-1. Accede a **ArgoCD**: [ArgoCD Dashboard](https://argo.aroldev.com/).
+1. Accede a **ArgoCD**: [ArgoCD Dashboard](https://argo.aroldev.com/). Credentiales: 
+        - Username: admin
+        - Password: L49fXLvAGcQn7zxY
 2. Crea una nueva aplicación en **ArgoCD** apuntando a tu fork del repositorio Helm Chart:
+
    - **Destino del Repositorio**: URL de tu fork del repositorio `nodejs-app-aroldev-infra`.
    - **Ruta del Helm chart**: `charts/nodejs-app`.
    - **Sync Policy**: Automática o manual según prefieras.
+
 3. Verifica que ArgoCD pueda sincronizar correctamente los cambios con tu clúster de Kubernetes.
 
 
@@ -186,6 +192,7 @@ Template Jenkinsfile para crear los varios pasos:
 1. Realiza cambios en tu aplicación (por ejemplo, cambia el mensaje de bienvenida nel fichero README.md).
 2. Haz un **push** de estos cambios a tu fork del repositorio de la aplicación.
 3. Observa cómo el pipeline CI/CD se dispara automáticamente:
+
    - Jenkins detecta el cambio, construye la nueva imagen Docker y actualiza el repositorio de infraestructura.
    - ArgoCD detecta el nuevo commit y despliega la nueva versión de la aplicación en Kubernetes.
 
@@ -214,3 +221,8 @@ Al finalizar el laboratorio, habrás creado un pipeline CI/CD completo donde:
 ```
 
 Este archivo `README.md` contiene todas las instrucciones necesarias para realizar el laboratorio CI/CD con Jenkins y ArgoCD en un único fichero, proporcionando un flujo claro y estructurado.
+
+
+
+
+
