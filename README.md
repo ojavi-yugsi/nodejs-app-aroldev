@@ -73,6 +73,19 @@ Forkea ambos repositorios a tu cuenta de GitHub antes de empezar el laboratorio.
 
 1. En tu fork del repositorio de la aplicación Node.js, crea un archivo `Dockerfile` para construir la imagen Docker de la aplicación.
 
+Nota, esta aplicación escucha en el puerto `5000` o en el puerto especificado en la variable de entorno `PORT`.
+
+Pasos especificos para la applicación.
+
+```Dockerfile
+COPY package*.json ./
+COPY . ./
+RUN npm install
+COPY . .
+```
+
+Y se lanza con `node index.js`
+
 ### 3. Crear el Pipeline en Jenkins
 
 1. Accede a Jenkins: https://jenkins.aroldev.com/. Con el usuario `admin` y el password que compartiremos en discord.
